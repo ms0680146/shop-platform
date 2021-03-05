@@ -16,6 +16,8 @@ class CreateProductsTable extends Migration
         // 商品主表
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('shop_id')->comment('供應商ID');
+            $table->foreign('shop_id')->references('id')->on('shops')->onDelete('cascade');
             $table->enum('type', ['ACCESSORY', 'PRODUCT'])->comment('分類: 贈品(ACCESSORY)|商品(PRODUCT)');
             $table->string('name', 128)->comment('名稱');
             $table->text('description')->nullable()->comment('介紹');
