@@ -27,7 +27,7 @@ class CreateOrdersTable extends Migration
 
             $table->enum('status', ['WAITING', 'ACCEPTED', 'COMPLETED', 'CANCELLED', 'FAILED'])
                 ->default('WAITING')
-                ->comment('訂單狀態: 等待付款(WAITING)|ACCEPTED(訂單成立)|COMPLETED(付款完成)|CANCELLED(交易取消)|FAILED(付款失敗)');
+                ->comment('訂單狀態: WAITING(等待付款)|ACCEPTED(訂單成立)|COMPLETED(付款完成)|CANCELLED(交易取消)|FAILED(付款失敗)');
             $table->timestamp('paid_at')->nullable()->comment('付款時間');
             $table->timestamp('cancelled_at')->nullable()->comment('交易取消日');
             $table->softDeletes();
@@ -40,6 +40,8 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('order_id')->comment('訂單ID');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
 
+            $table->unsignedInteger('shop_id')->comment('供應商ID');
+            $table->foreign('shop_id')->references('id')->on('shops')->onDelete('cascade');
             $table->unsignedInteger('product_id')->comment('商品ID');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->integer('product_stock_id')->unsigned()->comment('商品庫存ID');
