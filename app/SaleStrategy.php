@@ -18,7 +18,6 @@ class SaleStrategy extends Model
     public const STRAGETY_UP_PRICE_GIFT = 6; // 滿 X 元贈送特定商品
 
     protected $fillable = [
-        'id', 'name', 'address', 
-        'phone', 'open_hours'
+        'id', 'type', 'strategy', 'amount', 'discount'
     ];
 }

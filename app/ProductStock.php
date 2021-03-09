@@ -14,4 +14,9 @@ class ProductStock extends Model
         'size', 'color', 'color_code', 
         'stock'
     ];
+
+    public function product()
+    {
+        $this->belongsTo(Product::class);
+    }
 }

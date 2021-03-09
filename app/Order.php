@@ -16,8 +16,14 @@ class Order extends Model
     public const STATUS_FAILED = 'FAILED'; // 付款失敗
 
     protected $fillable = [
-        'order_no', 'user_id', 'sum',
+        'id', 'order_no', 'user_id', 'sum',
         'sum_discount', 'ship_sum', 'ship_discount',
         'total', 'status', 'paid_at', 'cancelled_at'
     ];
+
+    // Relations
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
