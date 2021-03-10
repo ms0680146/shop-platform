@@ -13,6 +13,7 @@
 8. 折扣可限制特定時間內有效或是每月重新計算使用數量限制
 
 ## DB Tables：
+```
 users: 使用者
 shops: 供應商店家
 products: 商品(贈品和一般商品共用)
@@ -23,7 +24,7 @@ order_items: 訂單項目
 sale_strategies: 優惠策略(管理所有優惠，依照 type 區分不同類型的優惠:商品,供應商,訂單,折價卷)
 vi_shop_sale_strategies: 供應商店家-優惠策略(多對多)
 vi_user_coupons: 使用者-優惠策略(多對多)
-
+```
 
 
 ## API: 
