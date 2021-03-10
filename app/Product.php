@@ -16,8 +16,13 @@ class Product extends Model
     public const STATUS_OFFLINE = 'OFFLINE';
 
     protected $fillable = [
-        'id', 'type', 'name', 
-        'description', 'img', 'price', 
-        'status', 'weight'
+        'id', 'shop_id', 'sale_strategy_id', 
+        'type', 'name', 'description', 
+        'img', 'price', 'status', 'weight'
     ];
+
+    public function shop()
+    {
+        $this->belongsTo(Shop::class);
+    }
 }

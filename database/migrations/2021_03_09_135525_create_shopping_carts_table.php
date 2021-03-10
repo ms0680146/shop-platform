@@ -17,7 +17,7 @@ class CreateShoppingCartsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedInteger('user_id')->unique()->comment('使用者ID');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->text('carts')->comment('購物車裡的商品id或數量 ex: [{"id":129,"amount":1}]');
+            $table->text('carts')->nullable()->comment('購物車裡的商品id或數量 ex: [{"id":129,"amount":1}]');
             $table->timestamps();
         });
     }

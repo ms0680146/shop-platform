@@ -11,6 +11,6 @@ class Shop extends Model
 
     protected $fillable = [
         'id', 'name', 'address', 
-        'phone', 'open_hours'
+        'phone', 'open_hours', 'sale_strategy_id'
     ];
 }
