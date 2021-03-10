@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\SaleStrategy;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +25,10 @@ class OrderController extends Controller
     // 試算訂單金額
     public function caclOrder(Request $request)
     {
+        $this->validate($request, [
+            'coupon_id' => 'integer'
+        ]);
+
         $user = Auth::user();
         $shoppingCart = $user->shoppingCart;
 
@@ -36,14 +41,28 @@ class OrderController extends Controller
             return $this->customResponseService->apiResponse(404, 'not found', 'Nothing in shopping cart');
         }
 
-        // Get sale strategy (product, shop, order)
-        $saleStrategyIds = $this->saleStrategyService->getSaleStrategies($carts);
+        // Get sale strategy (product, shop, order, coupon)
+        $productSaleStrategyIds = $this->saleStrategyService->getCanUsedStrategies(SaleStrategy::TYPE_PRODUCT, $carts);
+        $shopSaleStrategyIds = $this->saleStrategyService->getCanUsedStrategies(SaleStrategy::TYPE_SHOP, $carts);
+        $orderSaleStrategyIds = $this->saleStrategyService->getCanUsedStrategies(SaleStrategy::TYPE_ORDER, $carts);
+        $couponSaleStrategyIds = $this->saleStrategyService->getCanUsedStrategies(SaleStrategy::TYPE_COUPON, $request->coupon_id);
+
+        $totalSaleStrategyIds = array_merge(
+            $productSaleStrategyIds, 
+            $shopSaleStrategyIds,
+            $orderSaleStrategyIds,
+            $couponSaleStrategyIds
+        );
+
         // Calculate sum, discount, total
-        $caclOrder = $this->orderService->calculate($carts, $saleStrategyIds);
+        $caclOrder = $this->orderService->calculate($carts, $totalSaleStrategyIds);
 
         $result = [
             'caclOrder' => $caclOrder,
-            'saleStrategyIds' => $saleStrategyIds
+            'product_strategies' => $productSaleStrategyIds,
+            'shop_strategies' => $shopSaleStrategyIds,
+            'order_strategies' => $orderSaleStrategyIds,
+            'coupon_strategies' => $couponSaleStrategyIds,
         ];
 
         return $this->customResponseService->apiResponse(200, 'success', $result);

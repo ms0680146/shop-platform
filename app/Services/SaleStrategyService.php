@@ -5,18 +5,40 @@ namespace App\Services;
 class SaleStrategyService
 {
     /**
-     * 找出購物車中可以使用優惠策略的商品, 店家及訂單
+     * 找出可以使用優惠策略的商品, 店家, 訂單及折價卷
      */
-    public function getSaleStrategies($carts)
+    public function getCanUsedStrategies(string $type, $data)
     {
-        $canUsedProductSaleStrategyIds = [1, 3];
-        $canUsedShopSaleStrategyIds = [2];
-        $canUsedOrderSaleStrategyIds = [5];
+        if ($type === SaleStrategy::TYPE_PRODUCT) {
+            return $this->getCanUsedProductStrateyIds($data);
+        } elseif ($type === SaleStrategy::TYPE_SHOP) {
+            return $this->getCanUsedShopStrategyIds($data);
+        } elseif ($type === SaleStrategy::TYPE_ORDER) {
+            return $this->getCanUsedOrderStrategyIds($data);
+        } elseif ($type === SaleStrategy::TYPE_SHOP) {
+            return $this->getCanUsedCouponStrategyIds($data);
+        } else {
+            throw \Exception('type not allow');
+        }
+    }
 
-        return [
-            'product_sale_strategies' => $canUsedProductSaleStrategyIds,
-            'shop_sale_strategies' => $canUsedShopSaleStrategyIds,
-            'order_sale_strategies' => $canUsedOrderSaleStrategyIds
-        ];
+    private function getCanUsedProductStrateyIds($data)
+    {
+        return [1,3];
+    }
+
+    private function getCanUsedShopStrategyIds($data)
+    {
+        return [2];
+    }
+
+    private function getCanUsedOrderStrategyIds($data)
+    {
+        return [4];
+    }
+
+    private function getCanUsedCouponStrategyIds($data)
+    {
+        return [5];
     }
 }
