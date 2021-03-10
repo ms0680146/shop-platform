@@ -15,10 +15,12 @@ class CreateSaleStrategiesTable extends Migration
     {
         Schema::create('sale_strategies', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('type', ['PRODUCT', 'ORDER', 'SHOP'])->nullable()->comment('銷售類型: PRODUCT(商品)|ORDER(訂單)|SHOP(供應商)');
+            $table->enum('type', ['PRODUCT', 'ORDER', 'SHOP', 'COUPON'])->nullable()->comment('銷售類型: PRODUCT(商品)|ORDER(訂單)|SHOP(供應商)|COUPON(折價卷)');
             $table->tinyInteger('strategy')->comment('策略');
             $table->string('amount', 256)->nullable()->comment('滿 xx 件 or 滿 xx 元');
             $table->string('discount', 256)->nullable()->comment('折 xx 元(-100) or 打 xx 折(95%)');
+            $table->timestamp('begin_at')->useCurrent()->comment('起始日');
+            $table->timestamp('end_at')->useCurrent()->comment('結束日');
             $table->timestamps();
         });
     }

@@ -9,6 +9,7 @@ class SaleStrategy extends Model
     public const TYPE_PRODUCT = 'PRODUCT';
     public const TYPE_ORDER = 'ORDER';
     public const TYPE_SHOP = 'SHOP';
+    public const TYPE_COUPON = 'COUPON';
 
     public const STRAGETY_UP_AMOUNT_DISCOUNT_PRICE = 1; // 滿 X 件折 Y 元
     public const STRAGETY_UP_AMOUNT_DISCCOUNT_PERCENT = 2; // 滿 X 件打 Z 折
@@ -18,6 +19,6 @@ class SaleStrategy extends Model
     public const STRAGETY_UP_PRICE_GIFT = 6; // 滿 X 元贈送特定商品
 
     protected $fillable = [
-        'id', 'type', 'strategy', 'amount', 'discount'
+        'id', 'type', 'strategy', 'amount', 'discount', 'begin_at', 'end_at'
     ];
 }
