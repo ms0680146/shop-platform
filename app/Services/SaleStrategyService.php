@@ -24,21 +24,21 @@ class SaleStrategyService
 
     private function getCanUsedProductStrateyIds($data)
     {
-        return [1,3];
+        return;
     }
 
     private function getCanUsedShopStrategyIds($data)
     {
-        return [2];
+        return;
     }
 
     private function getCanUsedOrderStrategyIds($data)
     {
-        return [4];
+        return;
     }
 
     private function getCanUsedCouponStrategyIds($data)
     {
-        return [5];
+        return;
     }
 }
