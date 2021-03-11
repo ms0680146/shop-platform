@@ -33,12 +33,12 @@ class OrderController extends Controller
         $shoppingCart = $user->shoppingCart;
 
         if (is_null($shoppingCart)) {
-            return $this->customResponseService->apiResponse(400, 'bad request', 'user do not have shopping cart');
+            return $this->customResponseService->apiResponse(400, 'not found', 'user do not have shopping cart');
         }
 
         $carts = $shoppingCart->carts;
-        if (is_null($carts)) {
-            return $this->customResponseService->apiResponse(404, 'not found', 'Nothing in shopping cart');
+        if (empty($carts)) {
+            return $this->customResponseService->apiResponse(204, 'no content', 'Nothing in shopping cart');
         }
 
         // Get sale strategy (product, shop, order, coupon)
